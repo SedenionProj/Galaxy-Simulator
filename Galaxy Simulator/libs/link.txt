@@ -1,0 +1,13 @@
+$(SolutionDir)
+C:\Users\Gerome\source\repos\#library\OpenGL\glfw\include
+C:\Users\Gerome\source\repos\#library\OpenGL\glew\include
+
+C:\Users\Gerome\source\repos\#library\OpenGL\glfw\lib-vc2022
+C:\Users\Gerome\source\repos\#library\OpenGL\glew\lib\Release\x64
+
+glew32s.lib
+glfw3.lib
+opengl32.lib
+User32.lib
+Gdi32.lib
+Shell32.lib
