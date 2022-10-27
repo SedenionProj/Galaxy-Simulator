@@ -1,6 +1,6 @@
 #include "core.h"
 
-Galaxy::app::app()
+app::app()
 {
     if (!glfwInit())
         std::cout << "error\n";
@@ -18,30 +18,24 @@ Galaxy::app::app()
     }
 }
 
-Galaxy::app::~app()
+app::~app()
 {
     glfwTerminate();
+    
 }
 
-void Galaxy::app::start()
+void app::start()
 {
 
     while (!glfwWindowShouldClose(window))
     {
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glfwSwapBuffers(window);
+        mainLoop();
 
+        glfwSwapBuffers(window);
         glfwPollEvents();
     }
     
-}
-
-void Galaxy::app::init()
-{
-
-}
-
-void Galaxy::app::mainLoop()
-{
 }
