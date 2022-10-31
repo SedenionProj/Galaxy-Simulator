@@ -5,6 +5,7 @@
 #include "Shader.h"
 
 struct Renderer {
-	void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader);
+	void DrawElements(const VertexArray& va, const IndexBuffer& ib, const Shader& shader);
+	void DrawArray(const VertexArray& va, const Shader& shader, const GLsizei& size);
 	void Clear();
 };

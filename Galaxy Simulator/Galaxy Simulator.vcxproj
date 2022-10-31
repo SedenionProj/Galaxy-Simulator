@@ -144,7 +144,7 @@
     <ClCompile Include="core\gl_obj\Shader.cpp" />
     <ClCompile Include="core\gl_obj\Texture.cpp" />
     <ClCompile Include="core\gl_obj\VertexArray.cpp" />
-    <ClCompile Include="core\gl_obj\VertexBuffer.cpp" />
+    <ClCompile Include="core\gl_obj\Buffer.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="core\core.cpp" />
   </ItemGroup>
@@ -155,12 +155,13 @@
     <ClInclude Include="core\gl_obj\Shader.h" />
     <ClInclude Include="core\gl_obj\Texture.h" />
     <ClInclude Include="core\gl_obj\VertexArray.h" />
-    <ClInclude Include="core\gl_obj\VertexBuffer.h" />
+    <ClInclude Include="core\gl_obj\Buffer.h" />
     <ClInclude Include="galaxy.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="core\shaders\Basic.frag" />
     <None Include="core\shaders\Basic.vert" />
+    <None Include="core\shaders\compute.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,6 @@
 #pragma once
 #include <GL/glew.h>
-#include "VertexBuffer.h"
+#include "Buffer.h"
 
 class VertexArray {
 public:
@@ -9,7 +9,7 @@ public:
 public:
 	void createVertexArray();
 	~VertexArray();
-	void AddBuffer(const VertexBuffer& vb, int size, int stride, int offset);
+	void AddBuffer(const Buffer& vb, const GLint& position, const  GLenum& type, int size, int stride, int offset);
 	void Bind()const;
 	void Unbind()const;
 };

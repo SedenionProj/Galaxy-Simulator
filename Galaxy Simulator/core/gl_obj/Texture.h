@@ -7,7 +7,7 @@ class Texture {
 private:
 	unsigned int ID;
 public:
-	Texture(const std::string& path);
+	void createTexture();
 	~Texture();
 
 	void Bind() const;

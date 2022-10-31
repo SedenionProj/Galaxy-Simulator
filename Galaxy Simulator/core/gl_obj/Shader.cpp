@@ -2,7 +2,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../../libs/stb_image.h"
 
-void Shader::createShader(const char* vertexPath, const char* fragmentPath) {
+void Shader::createVFShader(const char* vertexPath, const char* fragmentPath) {
 	std::string vertexCode;
 	std::string fragmentCode;
 	std::ifstream vShaderFile;
@@ -67,8 +67,61 @@ void Shader::createShader(const char* vertexPath, const char* fragmentPath) {
 	glDeleteShader(fragment);
 }
 
+void Shader::createCShader(const char* path)
+{
+	std::string vertexCode;
+	std::ifstream vShaderFile;
+	vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	try
+	{
+		vShaderFile.open(path);
+		std::stringstream vShaderStream;
+		vShaderStream << vShaderFile.rdbuf();
+		vShaderFile.close();
+		vertexCode = vShaderStream.str();
+	}
+	catch (std::ifstream::failure e)
+	{
+		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+	}
+	const char* vShaderCode = vertexCode.c_str();
+	unsigned int vertex;
+	int success;
+	char infoLog[512];
+	vertex = glCreateShader(GL_COMPUTE_SHADER);
+	glShaderSource(vertex, 1, &vShaderCode, NULL);
+	glCompileShader(vertex);
+	glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
+	if (!success)
+	{
+		glGetShaderInfoLog(vertex, 512, NULL, infoLog);
+		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" <<
+			infoLog << std::endl;
+	};
+
+	ID = glCreateProgram();
+	glAttachShader(ID, vertex);
+	glLinkProgram(ID);
+	glGetProgramiv(ID, GL_LINK_STATUS, &success);
+	if (!success)
+	{
+		glGetProgramInfoLog(ID, 512, NULL, infoLog);
+		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" <<
+			infoLog << std::endl;
+	}
+	glDeleteShader(vertex);
+}
+
 Shader::~Shader() {
 	glDeleteProgram(ID);
+}
+
+void Shader::useCompute(const Buffer& ssbo, const GLsizei& size)
+{
+	Bind();
+	ssbo.BindBase(0);
+	glDispatchCompute(size, 1, 1);
+	glMemoryBarrier(GL_ALL_BARRIER_BITS);
 }
 
 void Shader::Bind() const{

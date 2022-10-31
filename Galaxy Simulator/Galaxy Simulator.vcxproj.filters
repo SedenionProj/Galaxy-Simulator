@@ -36,7 +36,7 @@
     <ClCompile Include="core\gl_obj\VertexArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\gl_obj\VertexBuffer.cpp">
+    <ClCompile Include="core\gl_obj\Buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,12 +62,13 @@
     <ClInclude Include="core\gl_obj\VertexArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\gl_obj\VertexBuffer.h">
+    <ClInclude Include="core\gl_obj\Buffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="core\shaders\Basic.frag" />
     <None Include="core\shaders\Basic.vert" />
+    <None Include="core\shaders\compute.glsl" />
   </ItemGroup>
 </Project>

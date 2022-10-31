@@ -1,44 +1,41 @@
 #include "galaxy.h"
 
-float vertices[] = {
-	 0.5f,  0.5f, 0.0f,
-	 0.5f, -0.5f, 0.0f,
-	-0.5f, -0.5f, 0.0f,
-	-0.5f,  0.5f, 0.0f
-};
-unsigned int indices[] = {
-	0, 1, 3,
-	1, 2, 3
-};
-
 class Galaxy: public app {
+protected:
 	VertexArray va;
-	IndexBuffer ib;
+	Buffer ssbo;
 	Renderer renderer;
 	Shader shader;
+	Shader Cshader;
+	std::vector<float> vertices;
+	int number = 20000;
 public:
 	void init() override {
-		shader.createShader("core/shaders/Basic.vert", "core/shaders/Basic.frag");
+		for (float i = 0; i < 20000; i++) {
+			vertices.push_back((2*i / number) - 1);
+			vertices.push_back((float)((rand() % 200) - 100) / 100);
+			vertices.push_back(1);
+		}
 
 		va.createVertexArray();
-		VertexBuffer vb(sizeof(vertices), vertices);
-		va.AddBuffer(vb, 3, 3, 0);
-		ib.createIndexBuffer(sizeof(indices), indices);
+		ssbo.CreateBuffer(sizeof(float)*vertices.size(), vertices, GL_SHADER_STORAGE_BUFFER, GL_DYNAMIC_COPY);
+
+		shader.createVFShader("core/shaders/Basic.vert", "core/shaders/Basic.frag");
+		Cshader.createCShader("core/shaders/compute.glsl");
 
 		va.Unbind();
-		vb.Unbind();
-		shader.Unind();
-		ib.Unbind();
-	
+		ssbo.Unbind(GL_SHADER_STORAGE_BUFFER);
+		shader.Unind();	
 	}
 
 	void mainLoop() override {
-		renderer.Draw(va, ib, shader);
+		Cshader.useCompute(ssbo, vertices.size() / 128);
+		va.AddBuffer(ssbo,0, GL_ARRAY_BUFFER, 4, 4, 0);
+		renderer.DrawArray(va, shader, vertices.size());
 	}
 };
 
 int main(void){
 	std::unique_ptr<Galaxy> galaxy = std::make_unique<Galaxy>();
-	galaxy->init();
 	galaxy->start();
 }

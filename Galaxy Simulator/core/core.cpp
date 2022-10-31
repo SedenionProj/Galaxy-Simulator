@@ -1,11 +1,15 @@
 #include "core.h"
 
-app::app()
+app::app(): width(1280), height(720)
 {
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+
     if (!glfwInit())
         std::cout << "error\n";
 
-    window = glfwCreateWindow(1280, 720, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(width, height, "Galaxy", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -16,6 +20,8 @@ app::app()
     if (glewInit() != GLEW_OK) {
         std::cout << "error\n";
     }
+
+    glViewport(0, 0, width, height);
 }
 
 app::~app()
@@ -26,10 +32,11 @@ app::~app()
 
 void app::start()
 {
+    init();
 
     while (!glfwWindowShouldClose(window))
     {
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         mainLoop();

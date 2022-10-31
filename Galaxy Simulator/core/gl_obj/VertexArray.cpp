@@ -7,12 +7,11 @@ void VertexArray::createVertexArray() {
 VertexArray::~VertexArray() {
 	glDeleteVertexArrays(1, &ID);
 }
-void VertexArray::AddBuffer(const VertexBuffer& vb, int size, int stride, int offset) {
+void VertexArray::AddBuffer(const Buffer& vb, const GLint &position, const  GLenum& type, int size, int stride, int offset) {
 	Bind();
-	vb.Bind();
-	glVertexAttribPointer(pos, size, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)(offset * sizeof(float)));
-	glEnableVertexAttribArray(pos);
-	pos++;
+	vb.Bind(type);
+	glVertexAttribPointer(position, size, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)(offset * sizeof(float)));
+	glEnableVertexAttribArray(position);
 }
 void VertexArray::Bind() const{
 	glBindVertexArray(ID);
