@@ -10,10 +10,10 @@ void main() {
 	uint index = gl_GlobalInvocationID.x/3;
 
 	vec3 accel = vec3(0,0,0);
-	for(int i = 0; i< 20000; i++){
+	for(int i = 0; i< 200; i++){
 		if(positions[i]!=positions[index]){
 			accel += normalize(positions[i]-positions[index])/(pow(distance(positions[i],positions[index]),2)+25);
 		}
 	}
-	//positions[index] += accel/2000000;
+	positions[index] += accel/200000;
 }

@@ -14,16 +14,27 @@
 #include "gl_obj/Renderer.h"
 
 class app {
-protected:
+public:
+	static glm::vec3 cameraPos;
+	static glm::vec3 cameraFront;
+	static glm::vec3 cameraUp;
+	static bool firstMouse;
+	static float lastX, lastY;
+	static float yaw;
+	static float pitch;
+
 	GLFWwindow* window;
 	GLsizei width, height;
+	
 public:
 	app();
 	~app();
 
 	void start();
 
+	static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+
 	virtual void init(){}
 
-	virtual void mainLoop(){}
+	virtual void mainLoop(float &dt){}
 };
