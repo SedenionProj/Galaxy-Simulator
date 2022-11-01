@@ -121,7 +121,7 @@ void Shader::useCompute(const Buffer& ssbo, const GLsizei& size)
 	Bind();
 	ssbo.BindBase(0);
 	glDispatchCompute(size, 1, 1);
-	glMemoryBarrier(GL_ALL_BARRIER_BITS);
+	glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 }
 
 void Shader::Bind() const{

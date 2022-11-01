@@ -1,5 +1,4 @@
 #include "core.h"
-#include "events.cpp"
 
 glm::vec3 app::cameraPos = glm::vec3(0.0f, 0.0f, 0.0f);
 glm::vec3 app::cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
@@ -9,7 +8,7 @@ float app::lastX = 1280 / 2, app::lastY = 1280 / 2;
 float app::yaw = 0.0f;
 float app::pitch = 0.0f;
 
-app::app(): width(1280), height(720)
+app::app(): width(1920), height(1080)
 {
 
 
@@ -37,12 +36,12 @@ app::app(): width(1280), height(720)
 }
 
 void app::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
-    /*if (firstMouse)
+    if (firstMouse)
     {
         lastX = xpos;
         lastY = ypos;
         firstMouse = false;
-    }*/
+    }
     float xoffset = xpos - lastX;
     float yoffset = lastY - ypos;
     lastX = xpos;
@@ -65,6 +64,7 @@ void app::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 
 app::~app()
 {
+    glfwDestroyWindow(window);
     glfwTerminate();
 }
 

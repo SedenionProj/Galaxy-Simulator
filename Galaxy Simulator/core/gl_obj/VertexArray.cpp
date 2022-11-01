@@ -1,5 +1,7 @@
 #include "VertexArray.h"
 #include <iostream>
+#include "../../libs/glm/glm/glm.hpp"
+
 void VertexArray::createVertexArray() {
 	pos = 0;
 	glGenVertexArrays(1, &ID);
@@ -15,7 +17,6 @@ void VertexArray::AddBuffer(const Buffer& vb, const GLint &position, const  GLen
 }
 void VertexArray::Bind() const{
 	glBindVertexArray(ID);
-
 }
 void VertexArray::Unbind() const{
 	glBindVertexArray(0);

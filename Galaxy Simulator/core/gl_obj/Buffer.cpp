@@ -1,6 +1,7 @@
 #include "Buffer.h"
 
-void Buffer::CreateBuffer(const int size, const std::vector<float> data, const GLenum &type, const GLenum &usage)
+
+void Buffer::CreateBuffer(const int size, const std::vector<glm::vec4> data, const GLenum &type, const GLenum &usage)
 {
 	glGenBuffers(1, &ID);
 	glBindBuffer(type, ID);
