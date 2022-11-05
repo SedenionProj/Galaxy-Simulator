@@ -1,6 +1,6 @@
 #include "core.h"
 
-glm::vec3 app::cameraPos = glm::vec3(0.0f, 0.0f, 0.0f);
+glm::vec3 app::cameraPos = glm::vec3(0.0f, 1.0f, 0.0f);
 glm::vec3 app::cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
 glm::vec3 app::cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 bool app::firstMouse = true;
@@ -10,8 +10,6 @@ float app::pitch = 0.0f;
 
 app::app(): width(1920), height(1080)
 {
-
-
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 
@@ -33,6 +31,8 @@ app::app(): width(1920), height(1080)
     glViewport(0, 0, width, height);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwSetCursorPosCallback(window, mouse_callback);
+
+    
 }
 
 void app::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
@@ -64,6 +64,9 @@ void app::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 
 app::~app()
 {
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
     glfwDestroyWindow(window);
     glfwTerminate();
 }
@@ -71,6 +74,7 @@ app::~app()
 
 void app::start()
 {
+
     init();
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
@@ -79,10 +83,21 @@ void app::start()
     unsigned int counter = 0;
     float currentFrame = glfwGetTime();
 
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImGui::StyleColorsDark();
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init();
+
     while (!glfwWindowShouldClose(window))
     {
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
 
         currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
@@ -91,6 +106,8 @@ void app::start()
         counter++;
 
         mainLoop(deltaTime);
+
+        ImGui::EndFrame();
 
         glfwSwapBuffers(window);
         glfwPollEvents();

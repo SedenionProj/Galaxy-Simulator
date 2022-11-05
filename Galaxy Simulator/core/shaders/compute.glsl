@@ -6,6 +6,7 @@ struct Particle
 {
     vec4 position;
     vec4 velocity;
+	vec4 acceleration;
 };
 
 layout (std430, binding = 0) buffer ParticleBuffer {
@@ -13,16 +14,18 @@ layout (std430, binding = 0) buffer ParticleBuffer {
 };
 
 uniform float dt;
+uniform float accuracy;
 
-  const float mass = 1e-6;
-  const float csmooth = 1e-4;
+  const float mass = 1e-8;
+  const float csmooth = 1e-5;
 
 vec3 compute_force(vec3 posi){
 	vec3 f = vec3(0);
-	for(int i = 0; i<1000; i++){
-		vec3 dist = p[i].position.xyz - posi;
-		float d = length(dist);
-		f+= mass/(d*d*d+csmooth)*dist;
+	for(int i = 0; i<accuracy*p.length(); i++){
+		if(posi != p[i].position.xyz){
+			vec3 v = p[i].position.xyz - posi;
+			f+= mass*normalize(v)/(pow(length(v),2)+csmooth)/accuracy;
+		}
 	}
 	return f;
 }
@@ -32,13 +35,15 @@ void main() {
 
 	vec3 pos = p[index].position.xyz;
 	vec3 vel = p[index].velocity.xyz;
+	vec3 accel = p[index].acceleration.xyz;
 
-	vec3 accel = compute_force(pos);
-	vec3 velf = vel + accel *dt;
-	vec3 posf = pos+velf*dt;
+	vec3 newPos = pos+vel*dt + accel*(dt*dt*0.5);
+	vec3 newAccel = compute_force(pos);
+	vec3 newVel = vel + (accel+newAccel) *(dt*0.5);
 
-	p[index].position.xyz = posf;
-	p[index].velocity.xyz = velf;
+	p[index].position.xyz = newPos;
+	p[index].velocity.xyz = newVel;
+	p[index].acceleration.xyz = newAccel;
 	
 	
 }

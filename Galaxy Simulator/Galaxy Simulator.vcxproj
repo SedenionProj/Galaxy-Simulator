@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Galaxy Simulator\libs\glew\include;$(SolutionDir)Galaxy Simulator\libs\glfw\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Galaxy Simulator\libs\glew\include;$(SolutionDir)Galaxy Simulator\libs\glfw\include;$(SolutionDir)Galaxy Simulator\libs\imGui</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -93,7 +93,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Galaxy Simulator\libs\glew\include;$(SolutionDir)Galaxy Simulator\libs\glfw\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Galaxy Simulator\libs\glew\include;$(SolutionDir)Galaxy Simulator\libs\glfw\include;$(SolutionDir)Galaxy Simulator\libs\imGui</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -110,7 +110,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Galaxy Simulator\libs\glew\include;$(SolutionDir)Galaxy Simulator\libs\glfw\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Galaxy Simulator\libs\glew\include;$(SolutionDir)Galaxy Simulator\libs\glfw\include;$(SolutionDir)Galaxy Simulator\libs\imGui</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,7 +127,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Galaxy Simulator\libs\glew\include;$(SolutionDir)Galaxy Simulator\libs\glfw\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Galaxy Simulator\libs\glew\include;$(SolutionDir)Galaxy Simulator\libs\glfw\include;$(SolutionDir)Galaxy Simulator\libs\imGui</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,6 +145,13 @@
     <ClCompile Include="core\gl_obj\Texture.cpp" />
     <ClCompile Include="core\gl_obj\VertexArray.cpp" />
     <ClCompile Include="core\gl_obj\Buffer.cpp" />
+    <ClCompile Include="libs\imGui\imgui.cpp" />
+    <ClCompile Include="libs\imGui\imgui_demo.cpp" />
+    <ClCompile Include="libs\imGui\imgui_draw.cpp" />
+    <ClCompile Include="libs\imGui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="libs\imGui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="libs\imGui\imgui_tables.cpp" />
+    <ClCompile Include="libs\imGui\imgui_widgets.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="core\core.cpp" />
   </ItemGroup>
@@ -157,6 +164,14 @@
     <ClInclude Include="core\gl_obj\VertexArray.h" />
     <ClInclude Include="core\gl_obj\Buffer.h" />
     <ClInclude Include="galaxy.h" />
+    <ClInclude Include="libs\imGui\imconfig.h" />
+    <ClInclude Include="libs\imGui\imgui.h" />
+    <ClInclude Include="libs\imGui\imgui_impl_glfw.h" />
+    <ClInclude Include="libs\imGui\imgui_impl_opengl3.h" />
+    <ClInclude Include="libs\imGui\imgui_internal.h" />
+    <ClInclude Include="libs\imGui\imstb_rectpack.h" />
+    <ClInclude Include="libs\imGui\imstb_textedit.h" />
+    <ClInclude Include="libs\imGui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="core\shaders\Basic.frag" />

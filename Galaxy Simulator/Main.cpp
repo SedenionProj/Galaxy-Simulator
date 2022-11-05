@@ -9,19 +9,19 @@ protected:
 	Shader shader;
 	Shader Cshader;
 	std::vector<glm::vec4> vertices;
-	unsigned int number = 100000;
-	float speedHack = 1.f;
+	float speedHack;
+	unsigned int number = 1000000;
+	float accuracy = 0.0001f;
+	float iniVel = 0.07f;
 public:
 	void init() override {
 
 		for (float i = 0; i < number; i++) {
 			float angle = (float)(rand() % 62831852)/1000;
 			float len = (float)(rand() % 1000)/1000;
-			vertices.push_back(glm::vec4(cos(angle)*len, (float)(rand() % 100) / 1000, sin(angle) * len,0));
-			vertices.push_back(glm::vec4(0, 0, 0, 0));
-			/*vertices.push_back(0);
-			vertices.push_back(0);
-			vertices.push_back(0);*/
+			vertices.push_back(glm::vec4(cos(angle)*len, 1*(float)(rand() % 100) / 1000, sin(angle) * len,0));
+			vertices.push_back(glm::vec4(-sin(angle), 0, cos(angle), 0) * iniVel);
+			vertices.push_back(glm::vec4(0, 0, 0, 0)- glm::vec4(cos(angle) * len*100,0, sin(angle) * len*100, 0)*1000000.f);
 		}
 
 		va.createVertexArray();
@@ -37,7 +37,7 @@ public:
 
 	void mainLoop(float& dt) override {
 		speedHack = 1.f;;
-		if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+		if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 			speedHack = 100.f;
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 			cameraPos += glm::normalize(glm::vec3(1.0, 0.0, 1.0) * cameraFront) * dt * speedHack;
@@ -54,17 +54,22 @@ public:
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		
-
 		glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		glm::mat4 projection = glm::perspective(glm::radians(110.0f), (float)width / (float)height, 0.0001f, 20000.0f);
 
+		ImGui::Begin("test");
+		ImGui::End();
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 		Cshader.useCompute(ssbo, floor(vertices.size() / 128.f));
 		Cshader.setFloat("dt", dt);
-		va.AddBuffer(ssbo,0, GL_ARRAY_BUFFER, 3, 8, 0);
+		Cshader.setFloat("accuracy", accuracy);
+		va.AddBuffer(ssbo,0, GL_ARRAY_BUFFER, 3, 12, 0);
 		shader.Bind();
 		shader.setMat4("projection", projection);
 		shader.setMat4("view", view);
-		renderer.DrawArray(va, shader, number); //vertices.size()
+		renderer.DrawArray(va, shader, number);
 	}
 };
 
