@@ -4,9 +4,9 @@
 Projet consistant à simuler la formation de galaxy (ou autre structures) grace à l'attraction gravitationne qu'exerce chaque particules, les unes sur les autres (n-body simulation)
 Ces simulations ne sont pas réalistes, c'est à dire qu'elles ne sont pas à l'échelle, n'incluent pas les collisions, les différences de masses et les différents phénomènes astrophysique tel que les gaz.
 
-![Employee data](https://github.com/SedenionProj/Galaxy-Simulator/master/assets/screen1.png"Employee Data title")
-![Employee data](https://github.com/SedenionProj/Galaxy-Simulator/master/assets/screen2.png"Employee Data title")
-![Employee data](https://github.com/SedenionProj/Galaxy-Simulator/master/assets/screen3.png"Employee Data title")
+![Employee data](https://raw.githubusercontent.com/SedenionProj/Galaxy-Simulator/master/assets/screen1.png "img 1")
+![Employee data](https://raw.githubusercontent.com/SedenionProj/Galaxy-Simulator/master/assets/screen2.png "img 2")
+![Employee data](https://raw.githubusercontent.com/SedenionProj/Galaxy-Simulator/master/assets/screen3.png "img 3")
 
 ## Fonctionanlités
 
