@@ -15,16 +15,15 @@ layout (std430, binding = 0) buffer ParticleBuffer {
 
 uniform float dt;
 uniform float accuracy;
-
-  const float mass = 1e-8;
-  const float csmooth = 1e-5;
+uniform float gravity = 1e-8;
+uniform float csmooth = 1e-5;
 
 vec3 compute_force(vec3 posi){
 	vec3 f = vec3(0);
 	for(int i = 0; i<accuracy*p.length(); i++){
 		if(posi != p[i].position.xyz){
 			vec3 v = p[i].position.xyz - posi;
-			f+= mass*normalize(v)/(pow(length(v),2)+csmooth)/accuracy;
+			f+= gravity*normalize(v)/(pow(length(v),2)+csmooth)/accuracy;
 		}
 	}
 	return f;
@@ -37,7 +36,7 @@ void main() {
 	vec3 vel = p[index].velocity.xyz;
 	vec3 accel = p[index].acceleration.xyz;
 
-	vec3 newPos = pos+vel*dt + accel*(dt*dt*0.5);
+	vec3 newPos = pos+vel*dt + (dt*dt*0.5);
 	vec3 newAccel = compute_force(pos);
 	vec3 newVel = vel + (accel+newAccel) *(dt*0.5);
 
