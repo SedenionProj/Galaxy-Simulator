@@ -2,8 +2,9 @@
 out vec4 FragColor;
 
 in float color;
+uniform vec3 hue;
 
 void main()
 {
-	FragColor = vec4(1.f, color*0.1f, 1.f, 1.0f);
+	FragColor = vec4(hue.x, color+hue.y, hue.z, 1.0f);
 }

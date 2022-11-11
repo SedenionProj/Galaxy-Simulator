@@ -95,9 +95,7 @@ void app::start()
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
+
 
         currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
@@ -107,10 +105,13 @@ void app::start()
 
         mainLoop(deltaTime);
 
-        ImGui::EndFrame();
 
         glfwSwapBuffers(window);
+
+        
+
         glfwPollEvents();
+
     }
     
 }

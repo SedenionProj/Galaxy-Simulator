@@ -15,9 +15,9 @@ layout (std430, binding = 0) buffer ParticleBuffer {
 
 uniform float dt;
 uniform float accuracy;
-uniform float gravity = 1e-8;
-uniform float csmooth = 1e-5;
-
+uniform float gravity;
+uniform float csmooth;
+uniform float blackHole;
 vec3 compute_force(vec3 posi){
 	vec3 f = vec3(0);
 	for(int i = 0; i<accuracy*p.length(); i++){
@@ -26,6 +26,7 @@ vec3 compute_force(vec3 posi){
 			f+= gravity*normalize(v)/(pow(length(v),2)+csmooth)/accuracy;
 		}
 	}
+	f+=blackHole*normalize(vec3(0)-posi.xyz)/(pow(length((vec3(0)-posi.xyz)),2)+csmooth);
 	return f;
 }
 
@@ -36,13 +37,11 @@ void main() {
 	vec3 vel = p[index].velocity.xyz;
 	vec3 accel = p[index].acceleration.xyz;
 
-	vec3 newPos = pos+vel*dt + (dt*dt*0.5);
+	vec3 newPos = pos+vel*dt + accel * (dt*dt*0.5);
 	vec3 newAccel = compute_force(pos);
 	vec3 newVel = vel + (accel+newAccel) *(dt*0.5);
 
 	p[index].position.xyz = newPos;
 	p[index].velocity.xyz = newVel;
 	p[index].acceleration.xyz = newAccel;
-	
-	
 }

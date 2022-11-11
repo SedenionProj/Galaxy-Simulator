@@ -15,7 +15,11 @@ protected:
 	float iniVel = 0.5f;
 	float gravity = 1e-5;
 	float csmooth = 1e-1;
+	float blackHole = 1;
 	float scale = 1;
+	glm::vec3 hue = glm::vec3(1,1,1);
+	glm::mat4 view;
+	glm::mat4 projection;
 public:
 	void init() override {
 		vertices.clear();
@@ -37,24 +41,42 @@ public:
 		va.Unbind();
 		ssbo.Unbind(GL_SHADER_STORAGE_BUFFER);
 		shader.Unind();	
+
+		projection = glm::perspective(glm::radians(110.0f), (float)width / (float)height, 0.0001f, 20000.0f);
 	}
 
-	void mainLoop(float& dt) override {
+	void GUI() {
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 
 		ImGui::Begin("parametres");
 		ImGui::Text("simulation");
 		if (ImGui::Button("Restart")) { init(); }
+		ImGui::Text("emetteur");
 		ImGui::SliderInt("nombre de particle", &number, 128, 5000000);
-		ImGui::InputInt("manuelle", &number);
+		ImGui::InputInt("nombre manuelle", &number);
 		ImGui::InputFloat("precision", &accuracy, 0.00001, NULL, "%.5f");
+		ImGui::SliderFloat("taille", &scale, 0, 100);
 		ImGui::Text("physique");
 		ImGui::InputFloat("gravite", &gravity, 0.00000001f, NULL, "%.8f");
 		ImGui::InputFloat("csmooth", &csmooth, 0.0000001f, NULL, "%.8f");
 		ImGui::InputFloat("velocite", &iniVel, 0.001f, NULL, "%.4f");
+		ImGui::SliderFloat("troup noir", &blackHole, 0, 100);
+		ImGui::Text("apparence");
+		ImGui::SliderFloat3("hue", &hue[0], -1, 1);
+		ImGui::Text("utilisateur");
 		ImGui::SliderFloat("speedHack", &speedHack, 0, 1000);
-		ImGui::SliderFloat("scale", &scale, 0, 100);
+		if (ImGui::Button("tp : x0 y0 z0")) { cameraPos = glm::vec3(0,0,0); }
+		
 		ImGui::End();
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
+		ImGui::EndFrame();
+	}
+
+	void inputs(float& dt) {
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 			cameraPos += glm::normalize(glm::vec3(1.0, 0.0, 1.0) * cameraFront) * dt * speedHack;
 		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -71,31 +93,37 @@ public:
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 			glfwSetCursorPosCallback(window, NULL);
 		}
-			
 		if (glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS)
 		{
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 			glfwSetCursorPosCallback(window, mouse_callback);
 
 		}
-		glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-		glm::mat4 projection = glm::perspective(glm::radians(110.0f), (float)width / (float)height, 0.0001f, 20000.0f);
+	}
+
+	void mainLoop(float& dt) override {
+		
+		inputs(dt);
+
+		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		
 
 		Cshader.useCompute(ssbo, floor(vertices.size() / 128.f));
 		Cshader.setFloat("dt", dt);
 		Cshader.setFloat("accuracy", accuracy);
 		Cshader.setFloat("gravity", gravity);
 		Cshader.setFloat("csmooth", csmooth);
+		Cshader.setFloat("blackHole", blackHole);
 		va.AddBuffer(ssbo,0, GL_ARRAY_BUFFER, 3, 12, 0);
 		va.AddBuffer(ssbo, 1, GL_ARRAY_BUFFER, 3, 12, 4);
 		shader.Bind();
 		shader.setMat4("projection", projection);
 		shader.setMat4("view", view);
+		shader.setVec3("hue", hue[0], hue[1], hue[2]);
+
 		renderer.DrawArray(va, shader, number);
 
-		
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		GUI();
 	}
 };
 
