@@ -18,6 +18,8 @@ Ces simulations ne sont pas réalistes, c'est à dire qu'elles ne sont pas à l'
 - modifier la taille
 - intéraction 3D
 - modifier la vitesse de déplacement
+- modifier la puissance du troup noir
+- enregistrer sa simulation
 
 ## Structures de données
 

@@ -2,26 +2,32 @@
 
 class Galaxy: public app {
 protected:
-
 	VertexArray va;
 	Buffer ssbo;
 	Renderer renderer;
 	Shader shader;
 	Shader Cshader;
 	std::vector<glm::vec4> vertices;
-	float speedHack = 1.f;
-	int number = 100000;
-	float accuracy = 0.01f;
-	float iniVel = 0.5f;
-	float gravity = 1e-5;
-	float csmooth = 1e-1;
-	float blackHole = 1;
-	float scale = 1;
-	glm::vec3 hue = glm::vec3(1,1,1);
 	glm::mat4 view;
 	glm::mat4 projection;
+	char preset[15] = "default";
+	char presetList[100];
+
+	int number = 100000;
+	float accuracy = 0.01f;
+	float scale = 1;
+
+	float gravity = 1e-5;
+	float csmooth = 1e-1;
+	float iniVel = 0.5f;
+	float blackHole = 1;
+
+	glm::vec3 hue = glm::vec3(1, 1, 1);
+
+	float speedHack = 1.f;
 public:
 	void init() override {
+		updatePresetList();
 		vertices.clear();
 		for (float i = 0; i < number; i++) {
 			float angle = (float)(rand() % 62831852)/1000;
@@ -29,7 +35,6 @@ public:
 			vertices.push_back(glm::vec4(cos(angle)*len, 1*(float)(rand() % 100) / 1000, sin(angle) * len,0));
 			vertices.push_back(glm::vec4(-sin(angle), 0, cos(angle), 0) * iniVel);
 			vertices.push_back(glm::vec4(0, 0, 0, 0)- glm::vec4(cos(angle) * len*100,0, sin(angle) * len*100, 0));
-			//vertices.push_back(glm::vec4(0, 0, 0, 0));
 		}
 
 		va.createVertexArray();
@@ -45,6 +50,96 @@ public:
 		projection = glm::perspective(glm::radians(110.0f), (float)width / (float)height, 0.0001f, 20000.0f);
 	}
 
+	void savePresets(std::string name) {
+		std::ofstream file("presets.gpf", std::ios::app);
+		if (file.is_open())
+		{
+			std::ifstream names("presets.gpf", std::ios::app);
+			std::string line;
+			while (getline(names, line))
+			{
+				if (line == name) {
+					names.close();
+					return;
+				}
+			}
+			file << name << "\n";
+			file << number << " " << accuracy << " " << scale << " " << gravity << " " << csmooth << " " << iniVel << " " << blackHole << " " << hue[0] << " " << hue[1] << " " << hue[2] << " " << speedHack <<"\n";
+			file.close();
+		}
+		else std::cout << "Unable to open file";
+		updatePresetList();
+	}
+
+	void loadPresets(std::string name) {
+		std::string line;
+		std::ifstream file("presets.gpf", std::ios_base::in);
+		int _nbre;
+		float _preci;
+		float _taille;
+
+		float _gravit;
+		float _smooth;
+		float _velocite;
+		float _tNoir;
+
+		glm::vec3 _col;
+		
+		float _speed;
+
+		if (file.is_open())
+		{
+			while (getline(file, line))
+			{
+				if (line == name) {
+					std::string values;
+					std::getline(file, values);
+					std::stringstream sValues;
+					sValues << values;
+					sValues >> _nbre >> _preci >> _taille >> _gravit >> _smooth >> _velocite >> _tNoir >> _col[0] >> _col[1] >> _col[2] >> _speed;
+
+					number = _nbre;
+					accuracy = _preci;
+					scale = _taille;
+
+					gravity = _gravit;
+					csmooth = _smooth;
+					iniVel = _velocite;
+					blackHole = _tNoir;
+
+					hue = _col;
+
+					speedHack = _speed;
+					init();
+					break;
+				}
+			}
+			file.close();
+		}
+		else std::cout << "Unable to open file";
+		updatePresetList();
+	}
+
+	void deletePreset(std::string name) {
+		std::string line;
+		std::ifstream fin;
+
+		fin.open("presets.gpf");
+		std::ofstream temp;
+		temp.open("temp.txt");
+
+		while (getline(fin, line)) {
+			if (line != name)
+				temp << line << std::endl;
+			else getline(fin, line);
+		}
+		temp.close();
+		fin.close();
+		remove("presets.gpf");
+		rename("temp.txt", "presets.gpf");
+		updatePresetList();
+	}
+
 	void GUI() {
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -53,6 +148,12 @@ public:
 		ImGui::Begin("parametres");
 		ImGui::Text("simulation");
 		if (ImGui::Button("Restart")) { init(); }
+		ImGui::InputText("nom du prereglage", preset, IM_ARRAYSIZE(preset));
+		ImGui::Text("prereglages enregistres :");
+		ImGui::Text(presetList);
+		if (ImGui::Button("enregistrer")) { savePresets(preset); }
+		if (ImGui::Button("charger")) { loadPresets(preset); }
+		if (ImGui::Button("supprimer")) { deletePreset(preset); }
 		ImGui::Text("emetteur");
 		ImGui::SliderInt("nombre de particle", &number, 128, 5000000);
 		ImGui::InputInt("nombre manuelle", &number);
@@ -74,6 +175,17 @@ public:
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		ImGui::EndFrame();
+	}
+
+	void updatePresetList() {
+		std::string list;
+		std::string line;
+		std::ifstream file("presets.gpf", std::ios_base::in);
+		while (getline(file, line)) {
+			list += line + ", ";
+			getline(file, line);
+		}
+		strcpy_s(presetList, list.c_str());
 	}
 
 	void inputs(float& dt) {

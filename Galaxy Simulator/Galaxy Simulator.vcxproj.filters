@@ -115,5 +115,6 @@
     <None Include="core\shaders\Basic.frag" />
     <None Include="core\shaders\Basic.vert" />
     <None Include="core\shaders\compute.glsl" />
+    <None Include="presets.gpf" />
   </ItemGroup>
 </Project>

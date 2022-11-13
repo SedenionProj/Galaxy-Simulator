@@ -177,6 +177,7 @@
     <None Include="core\shaders\Basic.frag" />
     <None Include="core\shaders\Basic.vert" />
     <None Include="core\shaders\compute.glsl" />
+    <None Include="presets.gpf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
