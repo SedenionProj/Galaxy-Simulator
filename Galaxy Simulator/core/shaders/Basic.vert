@@ -10,5 +10,6 @@ out float color;
 void main()
 {
 	color = length(vel);
+	// convertie la scène en 3D
 	gl_Position = projection*view*vec4(pos, 1.0);
 }

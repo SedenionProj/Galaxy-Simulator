@@ -18,7 +18,9 @@ uniform float accuracy;
 uniform float gravity;
 uniform float csmooth;
 uniform float blackHole;
+
 vec3 compute_force(vec3 posi){
+	// calcule la force gravitationnelle de chaque particule
 	vec3 f = vec3(0);
 	for(int i = 0; i<accuracy*p.length(); i++){
 		if(posi != p[i].position.xyz){
@@ -31,6 +33,7 @@ vec3 compute_force(vec3 posi){
 }
 
 void main() {
+	// met à jour la position des particules
 	uint index = gl_GlobalInvocationID.x;
 
 	vec3 pos = p[index].position.xyz;

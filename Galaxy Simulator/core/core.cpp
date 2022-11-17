@@ -10,6 +10,7 @@ float app::pitch = 0.0f;
 
 app::app(): width(1920), height(1080)
 {
+    // crée la fenêtre
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 
@@ -31,11 +32,10 @@ app::app(): width(1920), height(1080)
     glViewport(0, 0, width, height);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwSetCursorPosCallback(window, mouse_callback);
-
-    
 }
 
 void app::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+    // change la rotation de la camera en fonction de position de la souris
     if (firstMouse)
     {
         lastX = xpos;
@@ -64,6 +64,7 @@ void app::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 
 app::~app()
 {
+    // termine/éteint le programe
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
@@ -74,7 +75,7 @@ app::~app()
 
 void app::start()
 {
-
+    // fait commencer le programme
     init();
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;

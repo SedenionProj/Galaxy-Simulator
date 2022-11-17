@@ -27,15 +27,8 @@ protected:
 	float speedHack = 1.f;
 public:
 	void init() override {
-		updatePresetList();
-		vertices.clear();
-		for (float i = 0; i < number; i++) {
-			float angle = (float)(rand() % 62831852)/1000;
-			float len = scale*(float)(rand() % 1000)/1000;
-			vertices.push_back(glm::vec4(cos(angle)*len, 1*(float)(rand() % 100) / 1000, sin(angle) * len,0));
-			vertices.push_back(glm::vec4(-sin(angle), 0, cos(angle), 0) * iniVel);
-			vertices.push_back(glm::vec4(0, 0, 0, 0)- glm::vec4(cos(angle) * len*100,0, sin(angle) * len*100, 0));
-		}
+		// appelé au lancement du programme
+		reinit();
 
 		va.createVertexArray();
 		ssbo.CreateBuffer(sizeof(glm::vec4)*vertices.size(), vertices, GL_SHADER_STORAGE_BUFFER, GL_DYNAMIC_COPY);
@@ -50,7 +43,21 @@ public:
 		projection = glm::perspective(glm::radians(110.0f), (float)width / (float)height, 0.0001f, 20000.0f);
 	}
 
+	void reinit() {
+		// reinitialise la simulation
+		updatePresetList();
+		vertices.clear();
+		for (float i = 0; i < number; i++) {
+			float angle = (float)(rand() % 62831852) / 1000;
+			float len = scale * (float)(rand() % 1000) / 1000;
+			vertices.push_back(glm::vec4(cos(angle) * len, 1 * (float)(rand() % 100) / 1000, sin(angle) * len, 0));
+			vertices.push_back(glm::vec4(-sin(angle), 0, cos(angle), 0) * iniVel);
+			vertices.push_back(glm::vec4(0, 0, 0, 0) - glm::vec4(cos(angle) * len * 100, 0, sin(angle) * len * 100, 0));
+		}
+	}
+
 	void savePresets(std::string name) {
+		// sauvegarde le préreglage "name"
 		std::ofstream file("presets.gpf", std::ios::app);
 		if (file.is_open())
 		{
@@ -72,6 +79,7 @@ public:
 	}
 
 	void loadPresets(std::string name) {
+		// charge la préreglage "name"
 		std::string line;
 		std::ifstream file("presets.gpf", std::ios_base::in);
 		int _nbre;
@@ -121,6 +129,7 @@ public:
 	}
 
 	void deletePreset(std::string name) {
+		// supprime le préreglage "name"
 		std::string line;
 		std::ifstream fin;
 
@@ -140,7 +149,20 @@ public:
 		updatePresetList();
 	}
 
+	void updatePresetList() {
+		// met à jour la liste des préreglages dans l'interface graphique
+		std::string list;
+		std::string line;
+		std::ifstream file("presets.gpf", std::ios_base::in);
+		while (getline(file, line)) {
+			list += line + ", ";
+			getline(file, line);
+		}
+		strcpy_s(presetList, list.c_str());
+	}
+
 	void GUI() {
+		// dessine l'interface graphique avec ses fonctions
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
@@ -177,18 +199,8 @@ public:
 		ImGui::EndFrame();
 	}
 
-	void updatePresetList() {
-		std::string list;
-		std::string line;
-		std::ifstream file("presets.gpf", std::ios_base::in);
-		while (getline(file, line)) {
-			list += line + ", ";
-			getline(file, line);
-		}
-		strcpy_s(presetList, list.c_str());
-	}
-
 	void inputs(float& dt) {
+		// interraction avec le clavier
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 			cameraPos += glm::normalize(glm::vec3(1.0, 0.0, 1.0) * cameraFront) * dt * speedHack;
 		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -209,12 +221,12 @@ public:
 		{
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 			glfwSetCursorPosCallback(window, mouse_callback);
-
 		}
 	}
 
 	void mainLoop(float& dt) override {
-		
+		// boucle principale appelée à chaque image
+
 		inputs(dt);
 
 		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
@@ -240,6 +252,7 @@ public:
 };
 
 int main(void){
+	// debut du programme
 	std::unique_ptr<Galaxy> galaxy = std::make_unique<Galaxy>();
 	galaxy->start();
 }
