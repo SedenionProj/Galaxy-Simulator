@@ -7,11 +7,13 @@ Ces simulations ne sont pas réalistes, c'est à dire qu'elles ne sont pas à l'
 ![Employee data](https://raw.githubusercontent.com/SedenionProj/Galaxy-Simulator/master/assets/screen1.png "img 1")
 ![Employee data](https://raw.githubusercontent.com/SedenionProj/Galaxy-Simulator/master/assets/screen2.png "img 2")
 ![Employee data](https://raw.githubusercontent.com/SedenionProj/Galaxy-Simulator/master/assets/screen3.png "img 3")
+![Employee data](https://raw.githubusercontent.com/SedenionProj/Galaxy-Simulator/master/assets/screen4.png "img 4")
 
 ## Fonctionanlités
 
 - modifier le nombre de particules
 - modifier la force gravitationnelle
+- modifier la constante de l'écart des forces (csmooth)
 - modifier la vélocité initiale
 - modifier la précision de la simulation
 - modifier la couleur
