@@ -25,9 +25,12 @@ protected:
 	glm::vec3 hue = glm::vec3(1, 1, 1);
 
 	float speedHack = 1.f;
+
+	bool fullscrean = true;
+	bool hold = false;
 public:
 	void init() override {
-		// appelé au lancement du programme
+		// appelée au lancement du programme
 		reinit();
 
 		va.createVertexArray();
@@ -161,14 +164,10 @@ public:
 		strcpy_s(presetList, list.c_str());
 	}
 
-	void GUI() {
+	void GUI(float& dt) {
 		// dessine l'interface graphique avec ses fonctions
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
-
-		ImGui::Begin("parametres");
 		ImGui::Text("simulation");
+		ImGui::Text(("fps : "+std::to_string(1 / dt)).c_str());
 		if (ImGui::Button("Restart")) { init(); }
 		ImGui::InputText("nom du prereglage", preset, IM_ARRAYSIZE(preset));
 		ImGui::Text("prereglages enregistres :");
@@ -191,12 +190,6 @@ public:
 		ImGui::Text("utilisateur");
 		ImGui::SliderFloat("speedHack", &speedHack, 0, 1000);
 		if (ImGui::Button("tp : x0 y0 z0")) { cameraPos = glm::vec3(0,0,0); }
-		
-		ImGui::End();
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-		ImGui::EndFrame();
 	}
 
 	void inputs(float& dt) {
@@ -213,14 +206,39 @@ public:
 			cameraPos += cameraUp * dt * speedHack;
 		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 			cameraPos -= cameraUp * dt * speedHack;
+		if (glfwGetKey(window, GLFW_KEY_F11) == GLFW_PRESS) {
+			if (!hold) {
+				std::cout << "lol";
+				if (fullscrean) {
+					app::width = 1280;
+					app::height = 720;
+					glfwSetWindowMonitor(app::window, NULL, 0, 30, 1280, 720, 0);
+					fullscrean = false;
+				}
+				else {
+					app::width = 1920;
+					app::height = 1080;
+					glfwSetWindowMonitor(app::window, glfwGetPrimaryMonitor(), 0, 0, 1980, 1080, 0);
+					fullscrean = true;
+				}
+				glViewport(0, 0, width, height);
+				projection = glm::perspective(glm::radians(110.0f), (float)width / (float)height, 0.0001f, 20000.0f);
+			}
+			hold = true;
+		}
+		else {
+			hold = false;
+		}
+			
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-			glfwSetCursorPosCallback(window, NULL);
+			app::staticCam = true;
+			app::firstMouse = true;
 		}
 		if (glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS)
 		{
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-			glfwSetCursorPosCallback(window, mouse_callback);
+			app::staticCam = false;
 		}
 	}
 
@@ -230,7 +248,6 @@ public:
 		inputs(dt);
 
 		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-		
 
 		Cshader.useCompute(ssbo, floor(vertices.size() / 128.f));
 		Cshader.setFloat("dt", dt);
@@ -247,7 +264,7 @@ public:
 
 		renderer.DrawArray(va, shader, number);
 
-		GUI();
+		GUI(dt);
 	}
 };
 

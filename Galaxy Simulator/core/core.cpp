@@ -7,6 +7,7 @@ bool app::firstMouse = true;
 float app::lastX = 1280 / 2, app::lastY = 1280 / 2;
 float app::yaw = 0.0f;
 float app::pitch = 0.0f;
+bool app::staticCam = false;
 
 app::app(): width(1920), height(1080)
 {
@@ -17,7 +18,10 @@ app::app(): width(1920), height(1080)
     if (!glfwInit())
         std::cout << "error\n";
 
-    window = glfwCreateWindow(width, height, "Galaxy", NULL, NULL);
+    window = glfwCreateWindow(width, height, "Galaxy", glfwGetPrimaryMonitor(), NULL);
+
+    
+
     if (!window)
     {
         glfwTerminate();
@@ -30,8 +34,10 @@ app::app(): width(1920), height(1080)
     }
 
     glViewport(0, 0, width, height);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+   
     glfwSetCursorPosCallback(window, mouse_callback);
+    
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 void app::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
@@ -59,7 +65,8 @@ void app::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
     direction.y = sin(glm::radians(pitch));
     direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    cameraFront = glm::normalize(direction);
+    if(!app::staticCam)
+        cameraFront = glm::normalize(direction);
 }
 
 app::~app()
@@ -86,17 +93,17 @@ void app::start()
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    ImGui::StyleColorsDark();
+    ImGuiIO& io = ImGui::GetIO();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init();
+    ImGui_ImplOpenGL3_Init("#version 330");
+    ImGui::StyleColorsDark();
+
+    
 
     while (!glfwWindowShouldClose(window))
     {
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
-
 
         currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
@@ -104,15 +111,19 @@ void app::start()
         lastFrame = currentFrame;
         counter++;
 
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+        ImGui::Begin("parametres");
+
         mainLoop(deltaTime);
 
+        ImGui::End();
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         glfwSwapBuffers(window);
-
-        
-
         glfwPollEvents();
-
     }
     
 }

@@ -25,6 +25,7 @@ public:
 	static float lastX, lastY;
 	static float yaw;
 	static float pitch;
+	static bool staticCam;
 
 	GLFWwindow* window;
 	GLsizei width, height;
