@@ -90,14 +90,13 @@ void WindowApp::start() {
     Renderer::Init(window);
 
     while (!glfwWindowShouldClose(window)) {
-        Renderer::Clear();
-
         currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         timeDiff = currentFrame - prevTime;
         lastFrame = currentFrame;
 
         Renderer::GuiFrame();
+        Renderer::Clear();
 
         mainLoop(deltaTime);
 

@@ -92,12 +92,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Galaxy Simulator\vendor\glew\include;$(SolutionDir)Galaxy Simulator\vendor\glfw\include;$(SolutionDir)Galaxy Simulator\vendor\imGui;$(SolutionDir)Galaxy Simulator\vendor\glm;$(SolutionDir)Galaxy Simulator\vendor</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Galaxy Simulator\Vendor\glew\include;$(SolutionDir)Galaxy Simulator\Vendor\glfw\include;$(SolutionDir)Galaxy Simulator\Vendor\imGui;$(SolutionDir)Galaxy Simulator\Vendor\glm;$(SolutionDir)Galaxy Simulator\Vendor</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Galaxy Simulator\vendor\glfw\lib-vc2022;$(SolutionDir)Galaxy Simulator\vendor\glew\lib\Release\x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Galaxy Simulator\Vendor\glfw\lib-vc2022;$(SolutionDir)Galaxy Simulator\Vendor\glew\lib\Release\x64</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -109,14 +109,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Galaxy Simulator\vendor\glew\include;$(SolutionDir)Galaxy Simulator\vendor\glfw\include;$(SolutionDir)Galaxy Simulator\vendor\imGui;$(SolutionDir)Galaxy Simulator\vendor\glm;$(SolutionDir)Galaxy Simulator\vendor</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Galaxy Simulator\Vendor\glew\include;$(SolutionDir)Galaxy Simulator\Vendor\glfw\include;$(SolutionDir)Galaxy Simulator\Vendor\imGui;$(SolutionDir)Galaxy Simulator\Vendor\glm;$(SolutionDir)Galaxy Simulator\Vendor</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Galaxy Simulator\vendor\glfw\lib-vc2022;$(SolutionDir)Galaxy Simulator\vendor\glew\lib\Release\x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Galaxy Simulator\Vendor\glfw\lib-vc2022;$(SolutionDir)Galaxy Simulator\Vendor\glew\lib\Release\x64</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -126,12 +126,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Galaxy Simulator\vendor\glew\include;$(SolutionDir)Galaxy Simulator\vendor\glfw\include;$(SolutionDir)Galaxy Simulator\vendor\imGui;$(SolutionDir)Galaxy Simulator\vendor\glm;$(SolutionDir)Galaxy Simulator\vendor</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Galaxy Simulator\Vendor\glew\include;$(SolutionDir)Galaxy Simulator\Vendor\glfw\include;$(SolutionDir)Galaxy Simulator\Vendor\imGui;$(SolutionDir)Galaxy Simulator\Vendor\glm;$(SolutionDir)Galaxy Simulator\Vendor</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Galaxy Simulator\vendor\glfw\lib-vc2022;$(SolutionDir)Galaxy Simulator\vendor\glew\lib\Release\x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Galaxy Simulator\Vendor\glfw\lib-vc2022;$(SolutionDir)Galaxy Simulator\Vendor\glew\lib\Release\x64</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -143,14 +143,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Galaxy Simulator\vendor\glew\include;$(SolutionDir)Galaxy Simulator\vendor\glfw\include;$(SolutionDir)Galaxy Simulator\vendor\imGui;$(SolutionDir)Galaxy Simulator\vendor\glm;$(SolutionDir)Galaxy Simulator\vendor</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Galaxy Simulator\Vendor\glew\include;$(SolutionDir)Galaxy Simulator\Vendor\glfw\include;$(SolutionDir)Galaxy Simulator\Vendor\imGui;$(SolutionDir)Galaxy Simulator\Vendor\glm;$(SolutionDir)Galaxy Simulator\Vendor</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Galaxy Simulator\vendor\glfw\lib-vc2022;$(SolutionDir)Galaxy Simulator\vendor\glew\lib\Release\x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Galaxy Simulator\Vendor\glfw\lib-vc2022;$(SolutionDir)Galaxy Simulator\Vendor\glew\lib\Release\x64</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -161,13 +161,13 @@
     <ClCompile Include="Core\OpenGL\Shader.cpp" />
     <ClCompile Include="Core\OpenGL\VertexArray.cpp" />
     <ClCompile Include="Core\OpenGL\Buffer.cpp" />
-    <ClCompile Include="vendor\imGui\imgui.cpp" />
-    <ClCompile Include="vendor\imGui\imgui_demo.cpp" />
-    <ClCompile Include="vendor\imGui\imgui_draw.cpp" />
-    <ClCompile Include="vendor\imGui\imgui_impl_glfw.cpp" />
-    <ClCompile Include="vendor\imGui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="vendor\imGui\imgui_tables.cpp" />
-    <ClCompile Include="vendor\imGui\imgui_widgets.cpp" />
+    <ClCompile Include="Vendor\imGui\imgui.cpp" />
+    <ClCompile Include="Vendor\imGui\imgui_demo.cpp" />
+    <ClCompile Include="Vendor\imGui\imgui_draw.cpp" />
+    <ClCompile Include="Vendor\imGui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Vendor\imGui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Vendor\imGui\imgui_tables.cpp" />
+    <ClCompile Include="Vendor\imGui\imgui_widgets.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Core\Core.cpp" />
   </ItemGroup>
@@ -177,15 +177,15 @@
     <ClInclude Include="Core\OpenGL\Shader.h" />
     <ClInclude Include="Core\OpenGL\VertexArray.h" />
     <ClInclude Include="Core\OpenGL\Buffer.h" />
-    <ClInclude Include="vendor\imGui\imconfig.h" />
-    <ClInclude Include="vendor\imGui\imgui.h" />
-    <ClInclude Include="vendor\imGui\imgui_impl_glfw.h" />
-    <ClInclude Include="vendor\imGui\imgui_impl_opengl3.h" />
-    <ClInclude Include="vendor\imGui\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="vendor\imGui\imgui_internal.h" />
-    <ClInclude Include="vendor\imGui\imstb_rectpack.h" />
-    <ClInclude Include="vendor\imGui\imstb_textedit.h" />
-    <ClInclude Include="vendor\imGui\imstb_truetype.h" />
+    <ClInclude Include="Vendor\imGui\imconfig.h" />
+    <ClInclude Include="Vendor\imGui\imgui.h" />
+    <ClInclude Include="Vendor\imGui\imgui_impl_glfw.h" />
+    <ClInclude Include="Vendor\imGui\imgui_impl_opengl3.h" />
+    <ClInclude Include="Vendor\imGui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="Vendor\imGui\imgui_internal.h" />
+    <ClInclude Include="Vendor\imGui\imstb_rectpack.h" />
+    <ClInclude Include="Vendor\imGui\imstb_textedit.h" />
+    <ClInclude Include="Vendor\imGui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core\Shaders\Basic.frag" />
