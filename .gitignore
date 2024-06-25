@@ -5,6 +5,8 @@
 
 imgui.ini
 
+build/
+
 # User-specific files
 *.rsuser
 *.suo

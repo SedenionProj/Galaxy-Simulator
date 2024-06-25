@@ -1,11 +1,8 @@
 #pragma once
 #include <iostream>
-#include <GL/glew.h>
 #include <string>
-#include <sstream>
-#include <iostream>
-#include <fstream>
-#include "../../libs/glm/glm/glm.hpp"
+
+#include "glm/glm.hpp"
 #include "Buffer.h"
 
 class Shader {
@@ -15,7 +12,7 @@ public:
 	void createVFShader(const char* vertexPath, const char* fragmentPath);
 	void createCShader(const char* vertexPath);
 	~Shader();
-	void useCompute(const Buffer& ssbo, const GLsizei& size);
+	void useCompute(const Buffer& ssbo, const GLsizei size);
 	void Bind() const;
 	void Unind() const;
 	void setBool(const std::string& name, bool value) const;

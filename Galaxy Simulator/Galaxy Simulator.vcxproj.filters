@@ -18,106 +18,97 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\core.cpp">
+    <ClCompile Include="Core\Core.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\gl_obj\IndexBuffer.cpp">
+    <ClCompile Include="Core\OpenGL\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\gl_obj\Renderer.cpp">
+    <ClCompile Include="Core\OpenGL\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\gl_obj\Shader.cpp">
+    <ClCompile Include="Core\OpenGL\VertexArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\gl_obj\Texture.cpp">
+    <ClCompile Include="Core\OpenGL\Buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\gl_obj\VertexArray.cpp">
+    <ClCompile Include="vendor\imGui\imgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\gl_obj\Buffer.cpp">
+    <ClCompile Include="vendor\imGui\imgui_demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="libs\imGui\imgui.cpp">
+    <ClCompile Include="vendor\imGui\imgui_draw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="libs\imGui\imgui_demo.cpp">
+    <ClCompile Include="vendor\imGui\imgui_tables.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="libs\imGui\imgui_draw.cpp">
+    <ClCompile Include="vendor\imGui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="libs\imGui\imgui_tables.cpp">
+    <ClCompile Include="vendor\imGui\imgui_impl_glfw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="libs\imGui\imgui_widgets.cpp">
+    <ClCompile Include="vendor\imGui\imgui_impl_opengl3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="libs\imGui\imgui_impl_glfw.cpp">
+    <ClCompile Include="Application.h">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="libs\imGui\imgui_impl_opengl3.cpp">
+    <ClCompile Include="Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="core\core.h">
+    <ClInclude Include="Core\Core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="galaxy.h">
+    <ClInclude Include="Core\OpenGL\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\gl_obj\IndexBuffer.h">
+    <ClInclude Include="Core\OpenGL\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\gl_obj\Renderer.h">
+    <ClInclude Include="Core\OpenGL\VertexArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\gl_obj\Shader.h">
+    <ClInclude Include="Core\OpenGL\Buffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\gl_obj\Texture.h">
+    <ClInclude Include="vendor\imGui\imconfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\gl_obj\VertexArray.h">
+    <ClInclude Include="vendor\imGui\imgui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\gl_obj\Buffer.h">
+    <ClInclude Include="vendor\imGui\imgui_internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\imGui\imconfig.h">
+    <ClInclude Include="vendor\imGui\imstb_rectpack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\imGui\imgui.h">
+    <ClInclude Include="vendor\imGui\imstb_textedit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\imGui\imgui_internal.h">
+    <ClInclude Include="vendor\imGui\imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\imGui\imstb_rectpack.h">
+    <ClInclude Include="vendor\imGui\imgui_impl_glfw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\imGui\imstb_textedit.h">
+    <ClInclude Include="vendor\imGui\imgui_impl_opengl3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\imGui\imstb_truetype.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\imGui\imgui_impl_glfw.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\imGui\imgui_impl_opengl3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\imGui\imgui_impl_opengl3_loader.h">
+    <ClInclude Include="vendor\imGui\imgui_impl_opengl3_loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="core\shaders\Basic.frag" />
-    <None Include="core\shaders\Basic.vert" />
-    <None Include="core\shaders\compute.glsl" />
+    <None Include="Core\Shaders\Basic.frag" />
+    <None Include="Core\Shaders\Basic.vert" />
+    <None Include="Core\Shaders\Compute.glsl" />
     <None Include="presets.gpf" />
   </ItemGroup>
 </Project>

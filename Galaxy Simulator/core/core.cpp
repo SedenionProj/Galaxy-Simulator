@@ -1,36 +1,37 @@
 #include "core.h"
 
-glm::vec3 app::cameraPos = glm::vec3(0.0f, 1.0f, 0.0f);
-glm::vec3 app::cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
-glm::vec3 app::cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-bool app::firstMouse = true;
-float app::lastX = 1280 / 2, app::lastY = 1280 / 2;
-float app::yaw = 0.0f;
-float app::pitch = 0.0f;
-bool app::staticCam = false;
+glm::vec3 WindowApp::cameraPos = glm::vec3(0.0f, 1.0f, 0.0f);
+glm::vec3 WindowApp::cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
+glm::vec3 WindowApp::cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
-app::app(): width(1920), height(1080)
-{
+bool  WindowApp::firstMouse = true;
+float WindowApp::lastX = 1280 / 2, WindowApp::lastY = 1280 / 2;
+float WindowApp::yaw = 0.0f;
+float WindowApp::pitch = 0.0f;
+bool  WindowApp::staticCam = false;
+
+WindowApp::WindowApp(GLuint width, GLuint height): width(width), height(height) {
     // crée la fenêtre
+    if (!glfwInit()) {
+        std::cout << "error initializing glfw\n";
+        return;
+    }
+
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 
-    if (!glfwInit())
-        std::cout << "error\n";
-
     window = glfwCreateWindow(width, height, "Galaxy", glfwGetPrimaryMonitor(), NULL);
 
-    
-
-    if (!window)
-    {
-        glfwTerminate();
+    if (!window) {
+        std::cout << "error initializing glfw window\n";
+        return;
     }
 
     glfwMakeContextCurrent(window);
 
     if (glewInit() != GLEW_OK) {
-        std::cout << "error\n";
+        std::cout << "error initializing glew\n";
+        return;
     }
 
     glViewport(0, 0, width, height);
@@ -40,10 +41,9 @@ app::app(): width(1920), height(1080)
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
-void app::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+void WindowApp::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     // change la rotation de la camera en fonction de position de la souris
-    if (firstMouse)
-    {
+    if (firstMouse) {
         lastX = xpos;
         lastY = ypos;
         firstMouse = false;
@@ -65,65 +65,43 @@ void app::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
     direction.y = sin(glm::radians(pitch));
     direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    if(!app::staticCam)
+    if(!WindowApp::staticCam)
         cameraFront = glm::normalize(direction);
 }
 
-app::~app()
-{
+WindowApp::~WindowApp() {
     // termine/éteint le programe
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
+    Renderer::Terminate();
     ImGui::DestroyContext();
     glfwDestroyWindow(window);
     glfwTerminate();
 }
 
 
-void app::start()
-{
+void WindowApp::start() {
     // fait commencer le programme
     init();
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
     double prevTime = 0.0;
     double timeDiff;
-    unsigned int counter = 0;
     float currentFrame = glfwGetTime();
 
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init("#version 330");
-    ImGui::StyleColorsDark();
+    Renderer::Init(window);
 
-    
-
-    while (!glfwWindowShouldClose(window))
-    {
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+    while (!glfwWindowShouldClose(window)) {
+        Renderer::Clear();
 
         currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         timeDiff = currentFrame - prevTime;
         lastFrame = currentFrame;
-        counter++;
 
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-        ImGui::Begin("parametres");
+        Renderer::GuiFrame();
 
         mainLoop(deltaTime);
 
-        ImGui::End();
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+        Renderer::GuiRender();
+        Renderer::Display(window);
     }
-    
 }

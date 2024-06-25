@@ -1,7 +1,7 @@
 #include "Buffer.h"
 
 
-void Buffer::CreateBuffer(const int size, const std::vector<glm::vec4> data, const GLenum &type, const GLenum &usage)
+void Buffer::CreateBuffer(const GLuint size, const std::vector<glm::vec4> data, const GLenum &type, const GLenum &usage)
 {
 	glGenBuffers(1, &ID);
 	glBindBuffer(type, ID);
@@ -14,7 +14,7 @@ Buffer::~Buffer() {
 void Buffer::Bind(GLenum type) const {
 	glBindBuffer(type, ID);
 }
-void Buffer::BindBase(const int& pos) const
+void Buffer::BindBase(const GLuint pos) const
 {
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, pos, ID);
 }

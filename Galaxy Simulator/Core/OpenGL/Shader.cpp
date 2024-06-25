@@ -1,6 +1,10 @@
 #include "Shader.h"
 #define STB_IMAGE_IMPLEMENTATION
-#include "../../libs/stb_image.h"
+#include "stb_image.h"
+
+#include <sstream>
+#include <iostream>
+#include <fstream>
 
 void Shader::createVFShader(const char* vertexPath, const char* fragmentPath) {
 	std::string vertexCode;
@@ -116,7 +120,7 @@ Shader::~Shader() {
 	glDeleteProgram(ID);
 }
 
-void Shader::useCompute(const Buffer& ssbo, const GLsizei& size)
+void Shader::useCompute(const Buffer& ssbo, const GLsizei size)
 {
 	Bind();
 	ssbo.BindBase(0);
