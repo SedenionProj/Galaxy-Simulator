@@ -112,6 +112,10 @@ void Galaxy::inputHandler(float dt) {
 void Galaxy::DrawGUI(float dt) {
 	// dessine l'interface graphique avec ses fonctions
 	ImGui::Begin("parametres");
+	if (ImGui::Button("quitter")) { exit(0); }
+	ImGui::Text("\"echap\" : acceder au menu");
+	ImGui::Text("\"enter\" : vous diriger");
+	ImGui::Text("\"f11\" : quitter/rentrer en plein écran");
 	ImGui::SeparatorText("simulation");
 	ImGui::Text(("fps : " + std::to_string(1 / dt)).c_str());
 	if (ImGui::Button("Restart")) { init(); }
